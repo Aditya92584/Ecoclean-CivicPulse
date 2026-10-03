@@ -26,6 +26,19 @@ if (MONGODB_URI && MONGODB_URI.includes('@') && !MONGODB_URI.includes('%23')) {
 // Enable CORS
 app.use(cors());
 
+// Serverless cold-start DB connect middleware (essential for Vercel)
+app.use(async (_req: Request, _res: Response, next) => {
+  if (MONGODB_URI && mongoose.connection.readyState !== 1) {
+    try {
+      await mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 6000 });
+      isMongoConnected = true;
+    } catch (e: any) {
+      console.warn('[EcoClean Serverless] DB connect warning:', e.message);
+    }
+  }
+  next();
+});
+
 // Body Parsers (with large limit for base64 photo data)
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true, limit: '15mb' }));
@@ -332,6 +345,34 @@ app.delete('/api/issues/clear', async (_req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('DELETE /api/issues/clear error:', error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+/**
+ * DELETE /api/system/reset-all
+ * Deep clean: clears issues, and optionally wipes logs or re-seeds users
+ */
+app.delete('/api/system/reset-all', async (req: Request, res: Response) => {
+  try {
+    const { includeUsers = false, includeLogs = false } = req.body || {};
+    if (isMongoConnected) {
+      await Issue.deleteMany({});
+      if (includeLogs) await LoginLog.deleteMany({});
+      if (includeUsers) {
+        await User.deleteMany({});
+        await User.insertMany(defaultSystemUsers);
+      }
+    }
+    issuesStore = [];
+    if (includeUsers) {
+      usersStore = [...defaultSystemUsers.map((u, idx) => ({ ...u, id: `usr-00${idx + 1}` }))];
+    }
+    return res.status(200).json({
+      success: true,
+      message: 'MongoDB collections successfully refreshed/cleared.',
+    });
+  } catch (error: any) {
     return res.status(500).json({ success: false, message: error.message });
   }
 });
@@ -1082,6 +1123,9 @@ async function startServer() {
   });
 }
 
-startServer();
+// In Vercel serverless functions, export app directly without app.listen
+if (!process.env.VERCEL) {
+  startServer();
+}
 
 export { app, Issue, LoginLog };
