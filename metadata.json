@@ -1,0 +1,11 @@
+{
+  "name": "EcoClean Civic Pulse",
+  "description": "Civic waste reporting platform with instant location auto-detect, photo upload, and eco-green theme.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
+

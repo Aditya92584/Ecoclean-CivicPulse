@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes blobFloatSlow {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -25px) scale(1.08);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+@keyframes blobFloatSlowReverse {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(-35px, 20px) scale(1.06);
+  }
+  66% {
+    transform: translate(25px, -30px) scale(0.96);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes scanLine {
+  0% {
+    top: -5%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.6;
+  }
+  85% {
+    opacity: 0.6;
+  }
+  100% {
+    top: 105%;
+    opacity: 0;
+  }
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-25px) translateX(10px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.2;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2.5s infinite ease-in-out;
+}
+
+.animate-blob-1 {
+  animation: blobFloatSlow 14s infinite ease-in-out;
+}
+
+.animate-blob-2 {
+  animation: blobFloatSlowReverse 18s infinite ease-in-out;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
+}
+
+.animate-scan-line {
+  animation: scanLine 8s infinite linear;
+}
+
+.animate-particle-1 {
+  animation: floatParticle 6s infinite ease-in-out;
+}
+
+.animate-particle-2 {
+  animation: floatParticle 8s infinite ease-in-out 1.5s;
+}
+
+.animate-particle-3 {
+  animation: floatParticle 7s infinite ease-in-out 3s;
+}
+
