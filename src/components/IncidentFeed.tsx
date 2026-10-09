@@ -315,10 +315,6 @@ export const IncidentFeed: React.FC<IncidentFeedProps> = ({
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            Civic Transparency & Complaint Tracking
-          </div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
             Incident Feed & Progress Tracker
           </h1>

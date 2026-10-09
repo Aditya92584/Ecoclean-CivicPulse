@@ -50,15 +50,6 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* Main Centered Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14 pb-10 flex-1 flex flex-col items-center justify-center text-center">
-        {/* Top Status Pill with Animated Radar Ping */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-emerald-50/90 text-emerald-800 border border-emerald-300/80 text-[11px] font-bold tracking-wider uppercase shadow-xs mb-6 backdrop-blur-xs transition-transform hover:scale-105">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-          </span>
-          <span>REAL-TIME CIVIC CLEANLINESS NETWORK ACTIVE</span>
-        </div>
-
         {/* Hero Title with Shimmering Gradient Pulse */}
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-900 mb-4 select-none drop-shadow-xs">
           <span>Eco</span>
